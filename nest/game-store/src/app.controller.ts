@@ -9,4 +9,15 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello()
   }
+
+  @Get('new')
+  newEndpoint(): string {
+    return 'This is new'
+  }
+
+  // the methods work with slash or without it when resolving routes
+  @Get('/a/')
+  hello(): string {
+    return 'with /a/'
+  }
 }
