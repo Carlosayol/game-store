@@ -1,19 +1,31 @@
-import { Controller, Get, Param, Query } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common'
+import { CreateProduct } from '@/types/products'
 
 @Controller('products')
 export class ProductsController {
-  @Get('products')
+  @Get()
   getProducts(@Query('limit') limit: number, @Query('offset') offset: number) {
-    return `products ${limit} ${offset}`
+    return {
+      message: `products ${limit} ${offset}`,
+    }
   }
 
-  @Get('products/filter')
+  @Get('filter')
   getProductFilter(): string {
     return `hello filter`
   }
 
-  @Get('products/:id')
-  getProduct(@Param('id') id: string): string {
-    return `product ${id}`
+  @Get(':id')
+  getProduct(@Param('id') id: string) {
+    return {
+      message: `product ${id}`,
+    }
+  }
+
+  @Post()
+  create(@Body() payload: CreateProduct) {
+    return {
+      body: payload,
+    }
   }
 }
