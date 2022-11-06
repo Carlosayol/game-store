@@ -1,15 +1,24 @@
 import { CreateOrder } from '@/types/orders'
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common'
 
 @Controller('orders')
 export class OrdersController {
-  @Get('orders')
-  getProducts(@Query('limit') limit: number, @Query('offset') offset: number) {
+  @Get()
+  getPage(@Query('limit') limit: number, @Query('offset') offset: number) {
     return `orders ${limit} ${offset}`
   }
 
-  @Get('orders/:id')
-  getProduct(@Param('id') id: string): string {
+  @Get(':id')
+  get(@Param('id') id: string): string {
     return `order ${id}`
   }
 
@@ -17,6 +26,21 @@ export class OrdersController {
   create(@Body() payload: CreateOrder) {
     return {
       body: payload,
+    }
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() payload: CreateOrder) {
+    return {
+      id,
+      payload,
+    }
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return {
+      id,
     }
   }
 }
