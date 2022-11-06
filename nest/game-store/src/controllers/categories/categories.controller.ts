@@ -1,13 +1,10 @@
 import { CreateCategory } from '@/types/categories'
-import { Body, Controller, Get, Param, Post } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 
 @Controller('categories')
 export class CategoriesController {
-  @Get('categories/:id/products/:productId')
-  getCategory(
-    @Param('id') id: string,
-    @Param('productId') productId: string,
-  ): string {
+  @Get(':id/products/:productId')
+  get(@Param('id') id: string, @Param('productId') productId: string): string {
     return `category ${id} and product ${productId}`
   }
 
@@ -15,6 +12,21 @@ export class CategoriesController {
   create(@Body() payload: CreateCategory) {
     return {
       body: payload,
+    }
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() payload: CreateCategory) {
+    return {
+      id,
+      payload,
+    }
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return {
+      id,
     }
   }
 }
