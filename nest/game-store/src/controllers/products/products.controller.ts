@@ -4,13 +4,13 @@ import {
   Delete,
   Get,
   Param,
-  ParseIntPipe,
   Post,
   Put,
   Query,
 } from '@nestjs/common'
 import { CreateProduct } from '@/types/products'
 import { ProductsService } from '@/services/products/products.service'
+import { ParseIntPipe } from '@/common/parse-int/parse-int.pipe'
 
 @Controller('products')
 export class ProductsController {
