@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   Query,
@@ -16,7 +17,10 @@ export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
   @Get()
-  getPage(@Query('limit') limit: number, @Query('offset') offset: number) {
+  getPage(
+    @Query('limit', ParseIntPipe) limit: number,
+    @Query('offset', ParseIntPipe) offset: number,
+  ) {
     console.log(limit)
     console.log(offset)
     return this.productsService.findAll()
