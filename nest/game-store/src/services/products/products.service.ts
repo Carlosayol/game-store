@@ -1,3 +1,4 @@
+import { CreateProductDto, UpdateProductDto } from '@/dtos/products.dtos'
 import { Product } from '@/entities/product.entity'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { randomUUID } from 'crypto'
@@ -27,7 +28,7 @@ export class ProductsService {
     return product
   }
 
-  create(payload: any) {
+  create(payload: CreateProductDto) {
     const newProduct = {
       id: randomUUID(),
       ...payload,
@@ -37,7 +38,7 @@ export class ProductsService {
     return newProduct
   }
 
-  update(id: string, payload: any) {
+  update(id: string, payload: UpdateProductDto) {
     const product = this.find(id)
     if (product) {
       const index = this.products.findIndex((item) => item.id == id)
