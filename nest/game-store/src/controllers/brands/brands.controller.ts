@@ -1,14 +1,33 @@
-import { Controller, Get, Param, Query } from '@nestjs/common'
+import { CreateBrandDto, UpdateBrandDto } from '@/dtos/brands.dtos'
+import { BrandsService } from '@/services/brands/brands.service'
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 
 @Controller('brands')
 export class BrandsController {
+  constructor(private brandService: BrandsService) {}
+
   @Get()
-  getPage(@Query('limit') limit: number, @Query('offset') offset: number) {
-    return `brands ${limit} ${offset}`
+  getPage() {
+    return this.brandService.findAll()
   }
 
   @Get(':id')
-  get(@Param('id') id: string): string {
-    return `brand ${id}`
+  get(@Param('id') id: string) {
+    return this.brandService.find(id)
+  }
+
+  @Post()
+  create(@Body() payload: CreateBrandDto) {
+    return this.brandService.create(payload)
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() payload: UpdateBrandDto) {
+    return this.brandService.update(id, payload)
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.brandService.delete(id)
   }
 }
