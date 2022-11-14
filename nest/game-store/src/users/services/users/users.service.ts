@@ -1,10 +1,14 @@
 import { CreateUserDto, UpdateUserDto } from '@/dtos/users.dtos'
 import { User } from '@/entities/user.entity'
+import { ProductsService } from '@/products/services/products/products.service'
+import { Order } from '@/users/entities/order.entity'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { randomUUID } from 'crypto'
 
 @Injectable()
 export class UsersService {
+  constructor(private productsService: ProductsService) {}
+
   private users: User[] = [
     {
       id: '1',
@@ -55,5 +59,14 @@ export class UsersService {
   delete(id: string) {
     this.users == this.users.filter((item) => item.id != id)
     return id
+  }
+
+  getOrderByUser(id: string): Order {
+    const user = this.find(id)
+    return {
+      date: new Date(),
+      user,
+      products: this.productsService.findAll(),
+    }
   }
 }
