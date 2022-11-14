@@ -1,5 +1,5 @@
-import { CreateBrandDto, UpdateBrandDto } from '@/dtos/brands.dtos'
-import { BrandsService } from '@/services/brands/brands.service'
+import { CreateBrandDto, UpdateBrandDto } from '@/products/dtos/brands.dtos'
+import { BrandsService } from '@/products/services/brands/brands.service'
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 
 @Controller('brands')

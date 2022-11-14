@@ -1,5 +1,5 @@
-import { CreateBrandDto, UpdateBrandDto } from '@/dtos/brands.dtos'
-import { Brand } from '@/entities/brand.entity'
+import { CreateBrandDto, UpdateBrandDto } from '@/products/dtos/brands.dtos'
+import { Brand } from '@/products/entities/brand.entity'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { randomUUID } from 'crypto'
 

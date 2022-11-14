@@ -1,5 +1,8 @@
-import { CreateCustomerDto, UpdateCustomerDto } from '@/dtos/customers.dtos'
-import { CustomersService } from '@/services/customers/customers.service'
+import {
+  CreateCustomerDto,
+  UpdateCustomerDto,
+} from '@/users/dtos/customers.dtos'
+import { CustomersService } from '@/users/services/customers/customers.service'
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 
 @Controller('customers')

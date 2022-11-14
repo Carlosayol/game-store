@@ -1,6 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { Customer } from '@/entities/customer.entity'
-import { CreateCustomerDto, UpdateCustomerDto } from '@/dtos/customers.dtos'
+import { Customer } from '@/users/entities/customer.entity'
+import {
+  CreateCustomerDto,
+  UpdateCustomerDto,
+} from '@/users/dtos/customers.dtos'
 import { randomUUID } from 'crypto'
 
 @Injectable()
