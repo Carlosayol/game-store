@@ -2,14 +2,15 @@ import { ProductsService } from '@/products/services/products/products.service'
 import { CreateUserDto, UpdateUserDto } from '@/users/dtos/users.dtos'
 import { Order } from '@/users/entities/order.entity'
 import { User } from '@/users/entities/user.entity'
-import { Inject, Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { randomUUID } from 'crypto'
 
 @Injectable()
 export class UsersService {
   constructor(
     private productsService: ProductsService,
-    @Inject('API_KEY') private apiKey: string,
+    private configService: ConfigService,
   ) {}
 
   private users: User[] = [
@@ -22,6 +23,8 @@ export class UsersService {
   ]
 
   findAll() {
+    const apiKey = this.configService.get('API_KEY')
+    console.log(apiKey)
     return this.users
   }
 
