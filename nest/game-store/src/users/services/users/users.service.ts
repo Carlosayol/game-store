@@ -1,13 +1,16 @@
-import { CreateUserDto, UpdateUserDto } from '@/dtos/users.dtos'
-import { User } from '@/entities/user.entity'
 import { ProductsService } from '@/products/services/products/products.service'
+import { CreateUserDto, UpdateUserDto } from '@/users/dtos/users.dtos'
 import { Order } from '@/users/entities/order.entity'
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { User } from '@/users/entities/user.entity'
+import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { randomUUID } from 'crypto'
 
 @Injectable()
 export class UsersService {
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    @Inject('API_KEY') private apiKey: string,
+  ) {}
 
   private users: User[] = [
     {

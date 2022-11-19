@@ -5,17 +5,13 @@ import { UsersModule } from './users/users.module'
 import { ProductsModule } from './products/products.module'
 import { HttpModule, HttpService } from '@nestjs/axios'
 import { firstValueFrom } from 'rxjs'
+import { DatabaseModule } from './database/database.module'
 
-const API_KEY = '1231232123'
 @Module({
-  imports: [HttpModule, UsersModule, ProductsModule],
+  imports: [HttpModule, UsersModule, ProductsModule, DatabaseModule],
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: 'API_KEY',
-      useValue: API_KEY,
-    },
     {
       provide: 'TASKS',
       useFactory: async (http: HttpService) => {
