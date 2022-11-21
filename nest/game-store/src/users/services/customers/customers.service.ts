@@ -3,7 +3,7 @@ import { Customer } from '@/users/entities/customer.entity'
 import {
   CreateCustomerDto,
   UpdateCustomerDto,
-} from '@/users/dtos/customers.dtos'
+} from '@/users/dtos/customers.dto'
 import { randomUUID } from 'crypto'
 
 @Injectable()

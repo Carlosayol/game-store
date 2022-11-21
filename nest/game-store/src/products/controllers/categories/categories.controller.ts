@@ -1,7 +1,7 @@
 import {
   CreateCategoryDto,
   UpdateCategoryDto,
-} from '@/products/dtos/categories.dtos'
+} from '@/products/dtos/categories.dto'
 import { CategoriesService } from '@/products/services/categories/categories.service'
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 

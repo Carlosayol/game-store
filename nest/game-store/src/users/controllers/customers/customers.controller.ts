@@ -1,7 +1,7 @@
 import {
   CreateCustomerDto,
   UpdateCustomerDto,
-} from '@/users/dtos/customers.dtos'
+} from '@/users/dtos/customers.dto'
 import { CustomersService } from '@/users/services/customers/customers.service'
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 

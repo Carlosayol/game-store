@@ -1,7 +1,7 @@
 import {
   CreateProductDto,
   UpdateProductDto,
-} from '@/products/dtos/products.dtos'
+} from '@/products/dtos/products.dto'
 import { Product } from '@/products/entities/product.entity'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { randomUUID } from 'crypto'

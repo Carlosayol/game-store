@@ -1,5 +1,5 @@
 import { ProductsService } from '@/products/services/products/products.service'
-import { CreateUserDto, UpdateUserDto } from '@/users/dtos/users.dtos'
+import { CreateUserDto, UpdateUserDto } from '@/users/dtos/users.dto'
 import { Order } from '@/users/entities/order.entity'
 import { User } from '@/users/entities/user.entity'
 import { Injectable, NotFoundException } from '@nestjs/common'

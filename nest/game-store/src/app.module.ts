@@ -33,9 +33,7 @@ import config from './config'
     {
       provide: 'TASKS',
       useFactory: async (http: HttpService) => {
-        const tasksT = http.get('https://jsonplaceholder.typicode.com/todos')
-        const tasks = await firstValueFrom(tasksT)
-
+        const tasks = { data: 'ola' }
         return tasks.data
       },
     },

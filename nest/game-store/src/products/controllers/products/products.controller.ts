@@ -13,7 +13,7 @@ import { ParseIntPipe } from '@/common/parse-int/parse-int.pipe'
 import {
   CreateProductDto,
   UpdateProductDto,
-} from '@/products/dtos/products.dtos'
+} from '@/products/dtos/products.dto'
 
 @Controller('products')
 export class ProductsController {
