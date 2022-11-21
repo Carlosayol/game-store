@@ -14,12 +14,15 @@ import {
   CreateProductDto,
   UpdateProductDto,
 } from '@/products/dtos/products.dto'
+import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
+@ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
   @Get()
+  @ApiOperation({ summary: 'Get list of products' })
   getPage(
     @Query('limit', ParseIntPipe) limit: number,
     @Query('offset', ParseIntPipe) offset: number,
