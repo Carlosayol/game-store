@@ -1,8 +1,5 @@
-import {
-  CreateCategoryDto,
-  UpdateCategoryDto,
-} from '@/products/dtos/categories.dto'
-import { CategoriesService } from '@/products/services/categories/categories.service'
+import { CreateCategoryDto, UpdateCategoryDto } from '../../dtos/categories.dto'
+import { CategoriesService } from '../../services/categories/categories.service'
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 

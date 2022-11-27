@@ -1,5 +1,5 @@
-import { CreateUserDto, UpdateUserDto } from '@/users/dtos/users.dto'
-import { UsersService } from '@/users/services/users/users.service'
+import { CreateUserDto, UpdateUserDto } from '../../dtos/users.dto'
+import { UsersService } from '../../services/users/users.service'
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 

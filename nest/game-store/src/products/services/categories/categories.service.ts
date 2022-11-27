@@ -1,8 +1,5 @@
-import {
-  CreateCategoryDto,
-  UpdateCategoryDto,
-} from '@/products/dtos/categories.dto'
-import { Category } from '@/products/entities/category.entity'
+import { CreateCategoryDto, UpdateCategoryDto } from '../../dtos/categories.dto'
+import { Category } from '../../entities/category.entity'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { randomUUID } from 'crypto'
 

@@ -8,12 +8,9 @@ import {
   Put,
   Query,
 } from '@nestjs/common'
-import { ProductsService } from '@/products/services/products/products.service'
+import { ProductsService } from '../../services/products/products.service'
+import { CreateProductDto, UpdateProductDto } from '../../dtos/products.dto'
 import { ParseIntPipe } from '@/common/parse-int/parse-int.pipe'
-import {
-  CreateProductDto,
-  UpdateProductDto,
-} from '@/products/dtos/products.dto'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
 @ApiTags('Products')

@@ -1,8 +1,5 @@
-import {
-  CreateCustomerDto,
-  UpdateCustomerDto,
-} from '@/users/dtos/customers.dto'
-import { CustomersService } from '@/users/services/customers/customers.service'
+import { CreateCustomerDto, UpdateCustomerDto } from '../../dtos/customers.dto'
+import { CustomersService } from '../../services/customers/customers.service'
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 
