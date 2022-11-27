@@ -1,4 +1,4 @@
-import { ProductsModule } from '@/products/products.module'
+import { ProductsModule } from '../products/products.module'
 import { Module } from '@nestjs/common'
 import { CustomersController } from './controllers/customers/customers.controller'
 import { UsersController } from './controllers/users/users.controller'
