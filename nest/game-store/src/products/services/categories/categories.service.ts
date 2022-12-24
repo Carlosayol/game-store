@@ -8,7 +8,7 @@ export class CategoriesService {
   private categories: Category[] = [
     {
       id: '1',
-      name: 'action',
+      name: 'Category 1',
     },
   ]
 
