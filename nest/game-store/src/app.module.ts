@@ -9,21 +9,7 @@ import { UsersModule } from './users/users.module'
 import { ProductsModule } from './products/products.module'
 import { HttpModule, HttpService } from '@nestjs/axios'
 import { DatabaseModule } from './database/database.module'
-import { MongoClient } from 'mongodb'
 import config from './config'
-
-const uri = 'mongodb://root:root@localhost:27017/?authMechanism=DEFAULT'
-const client = new MongoClient(uri)
-
-async function run() {
-  await client.connect()
-  const database = client.db('game-store')
-  const taskCollection = database.collection('tasks')
-  const tasks = await taskCollection.find().toArray()
-  console.log(tasks)
-}
-
-run()
 
 @Module({
   imports: [
