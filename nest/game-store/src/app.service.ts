@@ -7,14 +7,16 @@ import config from './config'
 export class AppService {
   constructor(
     @Inject('TASKS') private tasks: any[],
-    @Inject('MONGO') private database: Db[],
+    @Inject('MONGO') private database: Db,
     @Inject(config.KEY) private configService: ConfigType<typeof config>,
   ) {}
+
   getHello(): string {
     return this.configService.apiKey
   }
 
   getTasks() {
-    this.database
+    const tasksCollection = this.database.collection('tasks')
+    return tasksCollection.find().toArray()
   }
 }

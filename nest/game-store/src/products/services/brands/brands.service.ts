@@ -1,10 +1,13 @@
 import { CreateBrandDto, UpdateBrandDto } from '../../dtos/brands.dto'
 import { Brand } from '../../entities/brand.entity'
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { randomUUID } from 'crypto'
+import { Db } from 'mongodb'
 
 @Injectable()
 export class BrandsService {
+  constructor(@Inject('MONGO') private database: Db) {}
+
   private brands: Brand[] = [
     {
       id: '1',
@@ -54,5 +57,10 @@ export class BrandsService {
   delete(id: string) {
     this.brands == this.brands.filter((item) => item.id != id)
     return id
+  }
+
+  testDatabase() {
+    const tasksCollection = this.database.collection('tasks')
+    return tasksCollection.find().toArray()
   }
 }
