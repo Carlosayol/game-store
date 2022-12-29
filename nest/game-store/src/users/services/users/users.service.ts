@@ -67,12 +67,12 @@ export class UsersService {
     return id
   }
 
-  getOrderByUser(id: string): Order {
+  async getOrderByUser(id: string) {
     const user = this.find(id)
     return {
       date: new Date(),
       user,
-      products: this.productsService.findAll(),
+      products: await this.productsService.findAll(),
     }
   }
 }
