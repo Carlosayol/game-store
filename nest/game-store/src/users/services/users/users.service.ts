@@ -5,31 +5,25 @@ import { User } from '../../entities/user.entity'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { randomUUID } from 'crypto'
+import { Model } from 'mongoose'
+import { InjectModel } from '@nestjs/mongoose'
 
 @Injectable()
 export class UsersService {
   constructor(
     private productsService: ProductsService,
     private configService: ConfigService,
+    @InjectModel(User.name) private userModel: Model<User>,
   ) {}
-
-  private users: User[] = [
-    {
-      id: '1',
-      email: 'test@test.com',
-      password: 'test1234',
-      role: 'admin',
-    },
-  ]
 
   findAll() {
     const apiKey = this.configService.get('API_KEY')
     console.log(apiKey)
-    return this.users
+    return this.userModel.find().exec()
   }
 
-  find(id: string) {
-    const user = this.users.find((item) => item.id == id)
+  async find(id: string) {
+    const user = await this.userModel.findById(id).exec()
     if (!user) {
       throw new NotFoundException(`User ${id} not found`)
     }
