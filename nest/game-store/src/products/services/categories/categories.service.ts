@@ -2,22 +2,21 @@ import { CreateCategoryDto, UpdateCategoryDto } from '../../dtos/categories.dto'
 import { Category } from '../../entities/category.entity'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { randomUUID } from 'crypto'
+import { InjectModel } from '@nestjs/mongoose'
+import { Model } from 'mongoose'
 
 @Injectable()
 export class CategoriesService {
-  private categories: Category[] = [
-    {
-      id: '1',
-      name: 'Category 1',
-    },
-  ]
+  constructor(
+    @InjectModel(Category.name) private categoryModel: Model<Category>,
+  ) {}
 
   findAll() {
-    return this.categories
+    return this.categoryModel.find().exec()
   }
 
-  find(id: string) {
-    const category = this.categories.find((item) => item.id == id)
+  async find(id: string) {
+    const category = await this.categoryModel.findById(id).exec()
     if (!category) {
       throw new NotFoundException(`User ${id} not found`)
     }
