@@ -3,25 +3,19 @@ import { Brand } from '../../entities/brand.entity'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { randomUUID } from 'crypto'
 import { Db } from 'mongodb'
+import { InjectModel } from '@nestjs/mongoose'
+import { Model } from 'mongoose'
 
 @Injectable()
 export class BrandsService {
-  constructor(@Inject('MONGO') private database: Db) {}
-
-  private brands: Brand[] = [
-    {
-      id: '1',
-      name: 'action',
-      image: 'testimage.com',
-    },
-  ]
+  constructor(@InjectModel(Brand.name) private brandModel: Model<Brand>) {}
 
   findAll() {
-    return this.brands
+    return this.brandModel.find().exec()
   }
 
-  find(id: string) {
-    const brand = this.brands.find((item) => item.id == id)
+  async find(id: string) {
+    const brand = await this.brandModel.findById(id).exec()
     if (!brand) {
       throw new NotFoundException(`Brand ${id} not found`)
     }
