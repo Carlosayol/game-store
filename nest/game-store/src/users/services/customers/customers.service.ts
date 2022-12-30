@@ -2,24 +2,21 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import { Customer } from '../../entities/customer.entity'
 import { CreateCustomerDto, UpdateCustomerDto } from '../../dtos/customers.dto'
 import { randomUUID } from 'crypto'
+import { InjectModel } from '@nestjs/mongoose'
+import { Model } from 'mongoose'
 
 @Injectable()
 export class CustomersService {
-  private customers: Customer[] = [
-    {
-      id: '1',
-      name: 'test@test.com',
-      lastName: 'test1234',
-      phone: '+573024318825',
-    },
-  ]
+  constructor(
+    @InjectModel(Customer.name) private customerModel: Model<Customer>,
+  ) {}
 
   findAll() {
-    return this.customers
+    return this.customerModel.find().exec()
   }
 
-  find(id: string) {
-    const customer = this.customers.find((item) => item.id == id)
+  async find(id: string) {
+    const customer = await this.customerModel.findById(id).exec()
     if (!customer) {
       throw new NotFoundException(`User ${id} not found`)
     }
