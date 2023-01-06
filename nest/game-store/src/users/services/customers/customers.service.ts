@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { Customer } from '../../entities/customer.entity'
 import { CreateCustomerDto, UpdateCustomerDto } from '../../dtos/customers.dto'
-import { randomUUID } from 'crypto'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 

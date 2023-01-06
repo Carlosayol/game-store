@@ -4,9 +4,9 @@ import { Order } from '../../entities/order.entity'
 import { User } from '../../entities/user.entity'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { randomUUID } from 'crypto'
 import { Model } from 'mongoose'
 import { InjectModel } from '@nestjs/mongoose'
+import { FilterProductsDto } from '@/products/dtos/products.dto'
 
 @Injectable()
 export class UsersService {
@@ -31,34 +31,31 @@ export class UsersService {
     return user
   }
 
-  create(payload: CreateUserDto) {
-    const newUser = {
-      id: randomUUID(),
-      ...payload,
-    }
-
-    this.users.push(newUser)
-    return newUser
+  async create(payload: CreateUserDto) {
+    const newUser = new this.userModel(payload)
+    return await newUser.save()
   }
 
-  update(id: string, payload: UpdateUserDto) {
-    const user = this.find(id)
-    if (user) {
-      const index = this.users.findIndex((item) => item.id == id)
-      this.users[index] = {
-        ...user,
-        ...payload,
-      }
+  async update(id: string, payload: UpdateUserDto) {
+    const user = await this.userModel
+      .findByIdAndUpdate(id, { $set: payload }, { new: true })
+      .exec()
 
-      return payload
+    if (!user) {
+      throw new NotFoundException(`User #${id} not found`)
     }
 
-    throw new NotFoundException(`User #${id} not found`)
+    return user
   }
 
-  delete(id: string) {
-    this.users == this.users.filter((item) => item.id != id)
-    return id
+  async delete(id: string) {
+    const user = await this.userModel.findByIdAndRemove(id)
+
+    if (!user) {
+      throw new NotFoundException(`User #${id} not found`)
+    }
+
+    return user
   }
 
   async getOrderByUser(id: string) {
@@ -66,7 +63,10 @@ export class UsersService {
     return {
       date: new Date(),
       user,
-      products: await this.productsService.findAll(),
+      products: await this.productsService.findAll({
+        limit: 1,
+        offset: 0,
+      } as FilterProductsDto),
     }
   }
 }
