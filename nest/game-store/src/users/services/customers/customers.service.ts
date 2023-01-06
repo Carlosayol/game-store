@@ -24,33 +24,30 @@ export class CustomersService {
     return customer
   }
 
-  create(payload: CreateCustomerDto) {
-    const newCustomer = {
-      id: randomUUID(),
-      ...payload,
-    }
-
-    this.customers.push(newCustomer)
-    return newCustomer
+  async create(payload: CreateCustomerDto) {
+    const newCustomer = new this.customerModel(payload)
+    return await newCustomer.save()
   }
 
-  update(id: string, payload: UpdateCustomerDto) {
-    const customer = this.find(id)
-    if (customer) {
-      const index = this.customers.findIndex((item) => item.id == id)
-      this.customers[index] = {
-        ...customer,
-        ...payload,
-      }
+  async update(id: string, payload: UpdateCustomerDto) {
+    const customer = await this.customerModel
+      .findByIdAndUpdate(id, { $set: payload }, { new: true })
+      .exec()
 
-      return payload
+    if (!customer) {
+      throw new NotFoundException(`Customer #${id} not found`)
     }
 
-    throw new NotFoundException(`Customer #${id} not found`)
+    return customer
   }
 
-  delete(id: string) {
-    this.customers == this.customers.filter((item) => item.id != id)
-    return id
+  async delete(id: string) {
+    const customer = await this.customerModel.findByIdAndRemove(id)
+
+    if (!customer) {
+      throw new NotFoundException(`Customer #${id} not found`)
+    }
+
+    return customer
   }
 }
