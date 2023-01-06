@@ -6,9 +6,7 @@ import { Model } from 'mongoose'
 
 @Injectable()
 export class CategoriesService {
-  constructor(
-    @InjectModel(Category.name) private categoryModel: Model<Category>,
-  ) {}
+  constructor(@InjectModel(Category.name) private categoryModel: Model<Category>) {}
 
   findAll() {
     return this.categoryModel.find().exec()
@@ -29,9 +27,7 @@ export class CategoriesService {
   }
 
   async update(id: string, payload: UpdateCategoryDto) {
-    const category = await this.categoryModel
-      .findByIdAndUpdate(id, { $set: payload }, { new: true })
-      .exec()
+    const category = await this.categoryModel.findByIdAndUpdate(id, { $set: payload }, { new: true }).exec()
 
     if (!category) {
       throw new NotFoundException(`Category #${id} not found`)

@@ -27,9 +27,7 @@ export class BrandsService {
   }
 
   async update(id: string, payload: UpdateBrandDto) {
-    const brand = await this.brandModel
-      .findByIdAndUpdate(id, { $set: payload }, { new: true })
-      .exec()
+    const brand = await this.brandModel.findByIdAndUpdate(id, { $set: payload }, { new: true }).exec()
 
     if (!brand) {
       throw new NotFoundException(`Brand #${id} not found`)

@@ -6,9 +6,7 @@ import { Model } from 'mongoose'
 
 @Injectable()
 export class CustomersService {
-  constructor(
-    @InjectModel(Customer.name) private customerModel: Model<Customer>,
-  ) {}
+  constructor(@InjectModel(Customer.name) private customerModel: Model<Customer>) {}
 
   findAll() {
     return this.customerModel.find().exec()
@@ -29,9 +27,7 @@ export class CustomersService {
   }
 
   async update(id: string, payload: UpdateCustomerDto) {
-    const customer = await this.customerModel
-      .findByIdAndUpdate(id, { $set: payload }, { new: true })
-      .exec()
+    const customer = await this.customerModel.findByIdAndUpdate(id, { $set: payload }, { new: true }).exec()
 
     if (!customer) {
       throw new NotFoundException(`Customer #${id} not found`)
