@@ -1,7 +1,6 @@
 import { CreateCategoryDto, UpdateCategoryDto } from '../../dtos/categories.dto'
 import { Category } from '../../entities/category.entity'
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { randomUUID } from 'crypto'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 
@@ -24,33 +23,30 @@ export class CategoriesService {
     return category
   }
 
-  create(payload: CreateCategoryDto) {
-    const newCategory = {
-      id: randomUUID(),
-      ...payload,
-    }
-
-    this.categories.push(newCategory)
-    return newCategory
+  async create(payload: CreateCategoryDto) {
+    const newCategory = new this.categoryModel(payload)
+    return await newCategory.save()
   }
 
-  update(id: string, payload: UpdateCategoryDto) {
-    const category = this.find(id)
-    if (category) {
-      const index = this.categories.findIndex((item) => item.id == id)
-      this.categories[index] = {
-        ...category,
-        ...payload,
-      }
+  async update(id: string, payload: UpdateCategoryDto) {
+    const category = await this.categoryModel
+      .findByIdAndUpdate(id, { $set: payload }, { new: true })
+      .exec()
 
-      return payload
+    if (!category) {
+      throw new NotFoundException(`Category #${id} not found`)
     }
 
-    throw new NotFoundException(`User #${id} not found`)
+    return category
   }
 
-  delete(id: string) {
-    this.categories == this.categories.filter((item) => item.id != id)
-    return id
+  async delete(id: string) {
+    const category = await this.categoryModel.findByIdAndRemove(id)
+
+    if (!category) {
+      throw new NotFoundException(`Category #${id} not found`)
+    }
+
+    return category
   }
 }
