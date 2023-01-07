@@ -1,6 +1,5 @@
 import * as Joi from 'joi'
 import { Module } from '@nestjs/common'
-import { firstValueFrom } from 'rxjs'
 import { ConfigModule } from '@nestjs/config'
 
 import { AppController } from './app.controller'
@@ -33,9 +32,7 @@ import config from './config'
     {
       provide: 'TASKS',
       useFactory: async (http: HttpService) => {
-        const tasks = await http
-          .get('https://jsonplaceholder.typicode.com/todos')
-          .toPromise()
+        const tasks = await http.get('https://jsonplaceholder.typicode.com/todos').toPromise()
         return tasks.data
       },
       inject: [HttpService],
