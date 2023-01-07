@@ -20,12 +20,13 @@ export class ProductsService {
 
       return await this.productModel
         .find(filters)
+        .populate('brand')
         .skip(offset * limit)
         .limit(limit)
         .exec()
     }
 
-    return await this.productModel.find().exec()
+    return await this.productModel.find().populate('brand').exec()
   }
 
   async find(id: string) {

@@ -1,20 +1,6 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-  Query,
-} from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common'
 import { ProductsService } from '../../services/products/products.service'
-import {
-  CreateProductDto,
-  FilterProductsDto,
-  UpdateProductDto,
-} from '../../dtos/products.dto'
-import { ParseIntPipe } from '../../../common/parse-int/parse-int.pipe'
+import { CreateProductDto, FilterProductsDto, UpdateProductDto } from '../../dtos/products.dto'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 import { MongoIdPipe } from '@/common/mongo-id/mongo-id.pipe'
 
@@ -45,10 +31,7 @@ export class ProductsController {
   }
 
   @Put(':id')
-  update(
-    @Param('id', MongoIdPipe) id: string,
-    @Body() payload: UpdateProductDto,
-  ) {
+  update(@Param('id', MongoIdPipe) id: string, @Body() payload: UpdateProductDto) {
     return this.productsService.update(id, payload)
   }
 
