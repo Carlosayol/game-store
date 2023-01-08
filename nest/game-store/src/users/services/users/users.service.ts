@@ -37,7 +37,6 @@ export class UsersService {
 
   async update(id: string, payload: UpdateUserDto) {
     const user = await this.userModel.findByIdAndUpdate(id, { $set: payload }, { new: true }).exec()
-
     if (!user) {
       throw new NotFoundException(`User #${id} not found`)
     }
@@ -47,7 +46,6 @@ export class UsersService {
 
   async delete(id: string) {
     const user = await this.userModel.findByIdAndRemove(id)
-
     if (!user) {
       throw new NotFoundException(`User #${id} not found`)
     }
