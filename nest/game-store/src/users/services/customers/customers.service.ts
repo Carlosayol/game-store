@@ -28,7 +28,6 @@ export class CustomersService {
 
   async update(id: string, payload: UpdateCustomerDto) {
     const customer = await this.customerModel.findByIdAndUpdate(id, { $set: payload }, { new: true }).exec()
-
     if (!customer) {
       throw new NotFoundException(`Customer #${id} not found`)
     }
@@ -38,7 +37,6 @@ export class CustomersService {
 
   async delete(id: string) {
     const customer = await this.customerModel.findByIdAndRemove(id)
-
     if (!customer) {
       throw new NotFoundException(`Customer #${id} not found`)
     }
