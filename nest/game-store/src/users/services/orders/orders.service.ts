@@ -29,7 +29,6 @@ export class OrdersService {
 
   async update(id: string, payload: UpdateOrderDto) {
     const order = await this.orderModel.findByIdAndUpdate(id, { $set: payload }, { new: true }).exec()
-
     if (!order) {
       throw new NotFoundException(`Order #${id} not found`)
     }
@@ -39,7 +38,6 @@ export class OrdersService {
 
   async remove(id: string) {
     const order = await this.orderModel.findByIdAndRemove(id)
-
     if (!order) {
       throw new NotFoundException(`Order #${id} not found`)
     }
@@ -54,7 +52,6 @@ export class OrdersService {
     }
 
     order.products.pull(productId)
-
     return order.save()
   }
 
