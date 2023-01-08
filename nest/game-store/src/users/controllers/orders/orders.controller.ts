@@ -16,7 +16,7 @@ export class OrdersController {
 
   @Get(':id')
   get(@Param('id') id: string) {
-    return this.ordersService.findOne(id)
+    return this.ordersService.find(id)
   }
 
   @Post()

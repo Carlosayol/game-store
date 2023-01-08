@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { Model } from 'mongoose'
 import { InjectModel } from '@nestjs/mongoose'
 
@@ -13,20 +13,37 @@ export class OrdersService {
     return this.orderModel.find().populate('customer').populate('products').exec()
   }
 
-  async findOne(id: string) {
-    return this.orderModel.findById(id)
+  async find(id: string) {
+    const order = await this.orderModel.findById(id).exec()
+    if (!order) {
+      throw new NotFoundException(`Order ${id} not found`)
+    }
+
+    return order
   }
 
-  create(data: CreateOrderDto) {
-    const newModel = new this.orderModel(data)
-    return newModel.save()
+  async create(payload: CreateOrderDto) {
+    const newModel = new this.orderModel(payload)
+    return await newModel.save()
   }
 
-  update(id: string, changes: UpdateOrderDto) {
-    return this.orderModel.findByIdAndUpdate(id, { $set: changes }, { new: true }).exec()
+  async update(id: string, payload: UpdateOrderDto) {
+    const order = await this.orderModel.findByIdAndUpdate(id, { $set: payload }, { new: true }).exec()
+
+    if (!order) {
+      throw new NotFoundException(`Order #${id} not found`)
+    }
+
+    return order
   }
 
-  remove(id: string) {
-    return this.orderModel.findByIdAndDelete(id)
+  async remove(id: string) {
+    const order = await this.orderModel.findByIdAndRemove(id)
+
+    if (!order) {
+      throw new NotFoundException(`Order #${id} not found`)
+    }
+
+    return order
   }
 }
