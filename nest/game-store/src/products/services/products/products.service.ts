@@ -45,7 +45,6 @@ export class ProductsService {
 
   async update(id: string, payload: UpdateProductDto) {
     const product = await this.productModel.findByIdAndUpdate(id, { $set: payload }, { new: true }).exec()
-
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`)
     }
@@ -55,7 +54,6 @@ export class ProductsService {
 
   async delete(id: string) {
     const product = await this.productModel.findByIdAndRemove(id)
-
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`)
     }

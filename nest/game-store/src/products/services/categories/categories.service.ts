@@ -28,7 +28,6 @@ export class CategoriesService {
 
   async update(id: string, payload: UpdateCategoryDto) {
     const category = await this.categoryModel.findByIdAndUpdate(id, { $set: payload }, { new: true }).exec()
-
     if (!category) {
       throw new NotFoundException(`Category #${id} not found`)
     }
@@ -38,7 +37,6 @@ export class CategoriesService {
 
   async delete(id: string) {
     const category = await this.categoryModel.findByIdAndRemove(id)
-
     if (!category) {
       throw new NotFoundException(`Category #${id} not found`)
     }

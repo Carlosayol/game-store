@@ -28,7 +28,6 @@ export class BrandsService {
 
   async update(id: string, payload: UpdateBrandDto) {
     const brand = await this.brandModel.findByIdAndUpdate(id, { $set: payload }, { new: true }).exec()
-
     if (!brand) {
       throw new NotFoundException(`Brand #${id} not found`)
     }
@@ -38,7 +37,6 @@ export class BrandsService {
 
   async delete(id: string) {
     const brand = await this.brandModel.findByIdAndRemove(id)
-
     if (!brand) {
       throw new NotFoundException(`Brand #${id} not found`)
     }
