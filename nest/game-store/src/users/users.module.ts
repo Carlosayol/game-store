@@ -6,9 +6,29 @@ import { CustomersService } from './services/customers/customers.service'
 import { UsersService } from './services/users/users.service'
 import { OrdersController } from './controllers/orders/orders.controller'
 import { OrdersService } from './services/orders/orders.service'
+import { MongooseModule } from '@nestjs/mongoose'
+import { Customer, CustomerSchema } from './entities/customer.entity'
+import { User, UserSchema } from './entities/user.entity'
+import { Order, OrderSchema } from './entities/order.entity'
 
 @Module({
-  imports: [ProductsModule],
+  imports: [
+    ProductsModule,
+    MongooseModule.forFeature([
+      {
+        name: Customer.name,
+        schema: CustomerSchema,
+      },
+      {
+        name: User.name,
+        schema: UserSchema,
+      },
+      {
+        name: Order.name,
+        schema: OrderSchema,
+      },
+    ]),
+  ],
   controllers: [UsersController, CustomersController, OrdersController],
   providers: [UsersService, CustomersService, OrdersService],
 })
