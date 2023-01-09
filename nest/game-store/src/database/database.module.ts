@@ -10,8 +10,7 @@ const API_KEY = '1234'
   imports: [
     MongooseModule.forRootAsync({
       useFactory: async (configService: ConfigType<typeof config>) => {
-        const { connection, port, user, password, host, dbName } =
-          configService.mongo
+        const { connection, port, user, password, host, dbName } = configService.mongo
         return {
           uri: `${connection}://${host}:${port}`,
           user,

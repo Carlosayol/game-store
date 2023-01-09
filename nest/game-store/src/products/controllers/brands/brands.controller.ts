@@ -8,10 +8,10 @@ import { ApiTags } from '@nestjs/swagger'
 export class BrandsController {
   constructor(private brandService: BrandsService) {}
 
-  @Get('test')
-  getTests() {
-    return this.brandService.testDatabase()
-  }
+  // @Get('test')
+  // getTests() {
+  //   return this.brandService.testDatabase()
+  // }
 
   @Get()
   getPage() {
