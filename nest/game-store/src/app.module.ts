@@ -8,7 +8,7 @@ import { UsersModule } from './users/users.module'
 import { ProductsModule } from './products/products.module'
 import { HttpModule, HttpService } from '@nestjs/axios'
 import { DatabaseModule } from './database/database.module'
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './auth/auth.module'
 import config from './config'
 
 @Module({
