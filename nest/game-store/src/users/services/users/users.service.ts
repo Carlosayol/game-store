@@ -6,7 +6,7 @@ import { ConfigService } from '@nestjs/config'
 import { Model } from 'mongoose'
 import { InjectModel } from '@nestjs/mongoose'
 import { FilterProductsDto } from '@/products/dtos/products.dto'
-
+import * as bcrypt from 'bcrypt'
 @Injectable()
 export class UsersService {
   constructor(
@@ -16,9 +16,16 @@ export class UsersService {
   ) {}
 
   findAll() {
-    const apiKey = this.configService.get('API_KEY')
-    console.log(apiKey)
     return this.userModel.find().exec()
+  }
+
+  async findByEmail(email: string) {
+    const user = await this.userModel.findOne({ email }).exec()
+    if (!user) {
+      throw new NotFoundException(`User ${email} not found`)
+    }
+
+    return user
   }
 
   async find(id: string) {
@@ -32,7 +39,12 @@ export class UsersService {
 
   async create(payload: CreateUserDto) {
     const newUser = new this.userModel(payload)
-    return await newUser.save()
+    const hashPassword = await bcrypt.hash(newUser.password, 10)
+    newUser.password = hashPassword
+    const model = await newUser.save()
+    const { password, ...rta } = model.toJSON()
+
+    return rta
   }
 
   async update(id: string, payload: UpdateUserDto) {
@@ -55,6 +67,7 @@ export class UsersService {
 
   async getOrderByUser(id: string) {
     const user = this.find(id)
+
     return {
       date: new Date(),
       user,
