@@ -1,12 +1,17 @@
+import { AuthService } from '@/auth/services/auth/auth.service'
+import { User } from '@/users/entities/user.entity'
 import { Controller, Post, Req, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { Request } from 'express'
 
 @Controller('auth')
 export class AuthController {
+  constructor(private authService: AuthService) {}
+
   @UseGuards(AuthGuard('local'))
   @Post()
   login(@Req() req: Request) {
-    return req.user
+    const user = req.user as User
+    return this.authService.generateJWT(user)
   }
 }
