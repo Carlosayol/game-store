@@ -5,8 +5,11 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger'
 import { MongoIdPipe } from '@/common/mongo-id/mongo-id.pipe'
 import { JwtAuthGuard } from '@/auth/guards/jwt-auth/jwt-auth.guard'
 import { Public } from '@/auth/decorators/public.decorator'
+import { Roles } from '@/auth/decorators/roles.decorator'
+import { Role } from '@/auth/models/roles.model'
+import { RolesGuard } from '@/auth/guards/roles/roles.guard'
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
@@ -31,6 +34,7 @@ export class ProductsController {
     return this.productsService.find(id)
   }
 
+  @Roles(Role.ADMIN)
   @Post()
   create(@Body() payload: CreateProductDto) {
     return this.productsService.create(payload)
