@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common'
 import { ProductsService } from '../../services/products/products.service'
 import { CreateProductDto, FilterProductsDto, UpdateProductDto } from '../../dtos/products.dto'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 import { MongoIdPipe } from '@/common/mongo-id/mongo-id.pipe'
+import { AuthGuard } from '@nestjs/passport'
 
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
