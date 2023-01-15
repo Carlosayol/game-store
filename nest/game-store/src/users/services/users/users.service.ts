@@ -7,6 +7,7 @@ import { Model } from 'mongoose'
 import { InjectModel } from '@nestjs/mongoose'
 import { FilterProductsDto } from '@/products/dtos/products.dto'
 import * as bcrypt from 'bcrypt'
+
 @Injectable()
 export class UsersService {
   constructor(
