@@ -3,25 +3,29 @@ import { ProductsService } from '../../services/products/products.service'
 import { CreateProductDto, FilterProductsDto, UpdateProductDto } from '../../dtos/products.dto'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 import { MongoIdPipe } from '@/common/mongo-id/mongo-id.pipe'
-import { AuthGuard } from '@nestjs/passport'
+import { JwtAuthGuard } from '@/auth/guards/jwt-auth/jwt-auth.guard'
+import { Public } from '@/auth/decorators/public.decorator'
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtAuthGuard)
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
+  @Public()
   @Get()
   @ApiOperation({ summary: 'Get list of products' })
   getPage(@Query() params: FilterProductsDto) {
     return this.productsService.findAll(params)
   }
 
+  @Public()
   @Get('filter')
   getFilter(): string {
     return `hello filter`
   }
 
+  @Public()
   @Get(':id')
   get(@Param('id', MongoIdPipe) id: string) {
     return this.productsService.find(id)
