@@ -10,7 +10,7 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { Customer, CustomerSchema } from './entities/customer.entity'
 import { User, UserSchema } from './entities/user.entity'
 import { Order, OrderSchema } from './entities/order.entity'
-import { ProfileController } from './controllers/profile/profile.controller';
+import { ProfileController } from './controllers/profile/profile.controller'
 
 @Module({
   imports: [
